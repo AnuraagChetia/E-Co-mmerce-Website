@@ -1,6 +1,8 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 const Store = (props) => {
   return (
     <>
@@ -13,21 +15,29 @@ const Store = (props) => {
             <div className="col">
               <Card className="mx-auto" style={{ width: "18rem" }}>
                 <Card.Body>
-                  <Card.Title>{product.title}</Card.Title>
-                  <Card.Subtitle className="mb-2 text-muted">
-                    ${product.price}
-                  </Card.Subtitle>
+                  <Card.Title style={{ textAlign: "center" }}>
+                    {product.title}
+                  </Card.Title>
                   <Card.Img variant="top" src={product.imageUrl} />
-                  <Card.Text>Card Link</Card.Text>
-                  <Button variant="primary">Go somewhere</Button>
+                  <hr></hr>
+                  <Row>
+                    <Col>
+                      <Card.Text>${product.price}</Card.Text>
+                    </Col>
+                    <Col>
+                      <Button variant="primary" size="sm">
+                        Add to Card
+                      </Button>
+                    </Col>
+                  </Row>
                 </Card.Body>
               </Card>
             </div>
           ))}
         </div>
       </div>
-      <div className="text-center" style={{padding:'20px'}}>
-        <Button variant="info">See the cart</Button>
+      <div className="text-center" style={{ padding: "30px" }}>
+        <Button variant="info" style={{color:'white', fontWeight:'bold'}}>See the cart</Button>
       </div>
     </>
   );

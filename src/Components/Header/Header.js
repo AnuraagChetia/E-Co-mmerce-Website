@@ -1,43 +1,56 @@
-import React, { Fragment } from "react";
-// import Button from "react-bootstrap/Button";
-import { Container } from "react-bootstrap";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
+import React from "react";
+import {
+  MDBNavbar,
+  MDBNavbarNav,
+  MDBNavbarItem,
+  MDBNavbarLink,
+  MDBContainer,
+} from "mdb-react-ui-kit";
+
 const Header = (props) => {
   return (
-    <>
-      <Navbar bg="dark" variant="dark">
-        <Container>
-          {/* <Navbar.Brand href="#home">Navbar</Navbar.Brand> */}
-          <Nav as="ul" accessKeyclassName="me-auto" defaultActiveKey="/home">
-            <Nav.Item as="li">
-              <Nav.Link href="/home">Home</Nav.Link>
-            </Nav.Item>
-            <Nav.Item as="li">
-              <Nav.Link href="#features">Store</Nav.Link>
-            </Nav.Item>
-            <Nav.Item as="li">
-              <Nav.Link href="#pricing">About</Nav.Link>
-            </Nav.Item>
-            <Nav.Item as="li">
-              <Nav.Link href="#pricing">Cart</Nav.Link>
-            </Nav.Item>
-          </Nav>
-        </Container>
-      </Navbar>
-      <h1
-        style={{
-          backgroundColor: "#777",
-          textAlign: "center",
-          padding: "40px",
-          fontSize: "100px",
-          color: "white",
-          fontWeight: "bold",
-        }}
-      >
-        The Generics
-      </h1>
-    </>
+    <header>
+      <MDBNavbar expand="lg" light bgColor="white" className="fixed-top">
+        <MDBContainer fluid>
+          <MDBNavbarNav className="d-flex justify-content-center">
+            <MDBNavbarItem active>
+              <MDBNavbarLink aria-current="page" href="#">
+                Home
+              </MDBNavbarLink>
+            </MDBNavbarItem>
+            <MDBNavbarItem>
+              <MDBNavbarLink href="#" active>
+                Store
+              </MDBNavbarLink>
+            </MDBNavbarItem>
+            <MDBNavbarItem>
+              <MDBNavbarLink href="#">About</MDBNavbarLink>
+            </MDBNavbarItem>
+          </MDBNavbarNav>
+          <MDBNavbarItem className="d-flex justify-content-end">
+            {/* <MDBNavbarLink onClick={props.onCartClick}>Cart</MDBNavbarLink> */}
+            <button
+              type="button"
+              className="btn btn-tertiary"
+              data-mdb-ripple-color="light"
+              onClick={props.onCartClick}
+            >
+              Cart
+            </button>
+          </MDBNavbarItem>
+        </MDBContainer>
+      </MDBNavbar>
+
+      <div className="p-5 text-center bg-light">
+        <h1
+          className="mb-10"
+          style={{ paddingTop: "100px", fontWeight: "bold", fontSize: "7rem" }}
+        >
+          The Generics
+        </h1>
+      </div>
+    </header>
   );
 };
+
 export default Header;
