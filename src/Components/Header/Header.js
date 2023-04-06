@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   MDBNavbar,
   MDBNavbarNav,
@@ -6,19 +6,21 @@ import {
   MDBNavbarLink,
   MDBContainer,
 } from "mdb-react-ui-kit";
+import CartContext from "../../Store/cart-context";
 
 const Header = (props) => {
+  const cartCtx = useContext(CartContext);
   return (
     <header>
       <MDBNavbar expand="lg" light bgColor="white" className="fixed-top">
         <MDBContainer fluid>
           <MDBNavbarNav className="d-flex justify-content-center">
-            <MDBNavbarItem active>
+            <MDBNavbarItem>
               <MDBNavbarLink aria-current="page" href="#">
                 Home
               </MDBNavbarLink>
             </MDBNavbarItem>
-            <MDBNavbarItem>
+            <MDBNavbarItem key="store">
               <MDBNavbarLink href="#" active>
                 Store
               </MDBNavbarLink>
@@ -35,7 +37,7 @@ const Header = (props) => {
               data-mdb-ripple-color="light"
               onClick={props.onCartClick}
             >
-              Cart
+              Cart {cartCtx.totalItemsInCart}
             </button>
           </MDBNavbarItem>
         </MDBContainer>

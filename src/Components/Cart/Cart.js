@@ -1,14 +1,12 @@
-import React from "react";
-import { Card, Col, Row } from "react-bootstrap";
+import React, { useContext } from "react";
+import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import CartContext from "../../Store/cart-context";
+import CartItem from "./CartItem";
 
 const Cart = (props) => {
-  const products = props.dummyproducts;
-  let totalAmount = 0;
-  products.forEach((product) => {
-    totalAmount += product.price;
-  });
+  const cartCtx = useContext(CartContext);
   return (
     <Modal
       {...props}
@@ -31,48 +29,17 @@ const Cart = (props) => {
             Quantity <hr></hr>
           </Col>
         </Row>
-        {props.dummyproducts.map((product) => (
-          <Row style={{ marginBottom: "15px" }}>
-            <Col
-              style={{
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              <Card style={{ width: "80px", display: "inline-block" }}>
-                <Card.Img variant="top" src={product.imageUrl}></Card.Img>
-              </Card>
-              <p style={{ paddingLeft: "20px", display: "inline-block" }}>
-                {product.title}
-              </p>
-            </Col>
-            <Col
-              style={{
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              ${product.price}
-            </Col>
-            <Col
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              {product.quantity}
-              <Button variant="danger">Remove</Button>
-            </Col>
-          </Row>
+        {cartCtx.items.map((product) => (
+          <CartItem item={product}></CartItem>
         ))}
+        <hr></hr>
         <h4
           style={{
             float: "right",
           }}
         >
           Total
-          <span style={{ padding: "10px" }}>${totalAmount}</span>
+          <span style={{ padding: "10px" }}>${cartCtx.totalAmount}</span>
         </h4>
       </Modal.Body>
       <Modal.Footer>
