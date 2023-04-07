@@ -1,0 +1,15 @@
+a.hover,
+a.active {
+  color: var(--color-primary-800);
+  text-decoration: underline;
+  font-weight: bold;
+}
+a.hover,
+a.inActive {
+  color: rgba(0, 0, 0, 0.55);
+  text-decoration: none;
+  font-weight: bold;
+}
+a.hover {
+  font-weight: bold;
+}

@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./App.css";
 import Footer from "./Components/Footer/Footer";
 import Header from "./Components/Header/Header";
 import Store from "./Components/Store/Store";
 import Cart from "./Components/Cart/Cart";
 import CartContextProvider from "./Store/CartContextProvider";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import About from "./Pages/About";
+import CartContext from "./Store/cart-context";
 const productsArr = [
   {
     title: "Colors",
@@ -33,27 +36,67 @@ const productsArr = [
 ];
 function App() {
   const [modalShow, setModalShow] = React.useState(false);
-
-  return (
-    <>
-      <CartContextProvider>
-        <Cart
-          dummyproducts={productsArr}
-          show={modalShow}
-          onHide={() => {
-            setModalShow(false);
-          }}
-        ></Cart>
-        <Header
-          onCartClick={() => {
-            setModalShow(true);
-          }}
-        ></Header>
-        <Store products={productsArr}></Store>
-        <Footer></Footer>
-      </CartContextProvider>
-    </>
-  );
+  // const cartCtx = useContext(CartContext);
+  const cartClickHandler = () => {
+    setModalShow(true);
+  };
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: (
+        <CartContextProvider>
+          <Header onCartClick={cartClickHandler}></Header>
+          <Footer></Footer>
+        </CartContextProvider>
+      ),
+      children: [
+        {
+          path: "/",
+          element: (
+            <>
+              <Store products={productsArr}></Store>
+              <Cart
+                dummyproducts={productsArr}
+                show={modalShow}
+                onHide={() => {
+                  setModalShow(false);
+                }}
+              ></Cart>
+            </>
+          ),
+        },
+        {
+          path: "/about",
+          element: (
+            <>
+              <About></About>
+            </>
+          ),
+        },
+      ],
+    },
+  ]);
+  // return (
+  //   <>
+  //     <CartContextProvider>
+  // <Cart
+  //   dummyproducts={productsArr}
+  //   show={modalShow}
+  //   onHide={() => {
+  //     setModalShow(false);
+  //   }}
+  // ></Cart>;
+  // <Header
+  //   onCartClick={() => {
+  //     setModalShow(true);
+  //   }}
+  // ></Header>
+  //       <Store products={productsArr}></Store>
+  //       <Footer></Footer>
+  //     </CartContextProvider>
+  //   </>
+  // );
+  return <RouterProvider router={router}></RouterProvider>;
 }
 
 export default App;

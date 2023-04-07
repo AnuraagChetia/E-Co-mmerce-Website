@@ -1,6 +1,5 @@
 import React, { useContext, useState, useReducer } from "react";
 import CartContext from "./cart-context";
-// let length = 0;
 const defaultCartState = {
   items: [],
   totalAmount: 0,
@@ -30,6 +29,7 @@ const cartReducer = (state, action) => {
       totalAmount: updatedTotalAmount,
     };
   }
+  return defaultCartState;
 };
 const CartContextProvider = (props) => {
   // const cartCtx = useContext(CartContext);
@@ -54,6 +54,7 @@ const CartContextProvider = (props) => {
     items: cartState.items,
     totalAmount: cartState.totalAmount,
     addItem: addItemToCartHandler,
+    quantity: cartState.items.length,
     // removeItem: removeItemToCartHandler,
   };
   return (
