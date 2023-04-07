@@ -9,6 +9,7 @@ import {
 import CartContext from "../../Store/cart-context";
 import { NavLink, Outlet } from "react-router-dom";
 import classes from "./Header.module.css";
+import bgImg from "../../Assets/tim-toomey-eiY4KJ62P5Q-unsplash.jpg";
 const Header = (props) => {
   const cartCtx = useContext(CartContext);
   const numberOfCartItems = cartCtx.items.reduce((curNumber, item) => {

@@ -8,6 +8,8 @@ import CartContextProvider from "./Store/CartContextProvider";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import About from "./Pages/About";
 import CartContext from "./Store/cart-context";
+import Home from "./Pages/Home";
+import TourContextProvider from "./Store/TourContextProvider";
 const productsArr = [
   {
     title: "Colors",
@@ -46,6 +48,13 @@ function App() {
       element: (
         <CartContextProvider>
           <Header onCartClick={cartClickHandler}></Header>
+          <Cart
+            dummyproducts={productsArr}
+            show={modalShow}
+            onHide={() => {
+              setModalShow(false);
+            }}
+          ></Cart>
           <Footer></Footer>
         </CartContextProvider>
       ),
@@ -55,22 +64,19 @@ function App() {
           element: (
             <>
               <Store products={productsArr}></Store>
-              <Cart
-                dummyproducts={productsArr}
-                show={modalShow}
-                onHide={() => {
-                  setModalShow(false);
-                }}
-              ></Cart>
             </>
           ),
         },
         {
           path: "/about",
+          element: <About></About>,
+        },
+        {
+          path: "/home",
           element: (
-            <>
-              <About></About>
-            </>
+            <TourContextProvider>
+              <Home></Home>
+            </TourContextProvider>
           ),
         },
       ],
