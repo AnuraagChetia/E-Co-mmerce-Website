@@ -15,7 +15,11 @@ const Store = (props) => {
         </div>
       </div>
       <div className="text-center" style={{ padding: "30px" }}>
-        <Button variant="info" style={{ color: "white", fontWeight: "bold" }}>
+        <Button
+          variant="info"
+          style={{ color: "white", fontWeight: "bold" }}
+          onClick={props.onCartClick}
+        >
           See the cart
         </Button>
       </div>

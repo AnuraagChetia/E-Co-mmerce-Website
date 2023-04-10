@@ -3,12 +3,14 @@ a.active {
   color: var(--color-primary-800);
   text-decoration: underline;
   font-weight: bold;
+  padding: 20px;
 }
 a.hover,
 a.inActive {
   color: rgba(0, 0, 0, 0.55);
   text-decoration: none;
   font-weight: bold;
+  padding: 20px;
 }
 a.hover {
   font-weight: bold;

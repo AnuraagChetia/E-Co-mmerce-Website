@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import "./App.css";
 import Footer from "./Components/Footer/Footer";
 import Header from "./Components/Header/Header";
@@ -7,9 +7,10 @@ import Cart from "./Components/Cart/Cart";
 import CartContextProvider from "./Store/CartContextProvider";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import About from "./Pages/About";
-import CartContext from "./Store/cart-context";
+// import CartContext from "./Store/cart-context";
 import Home from "./Pages/Home";
 import TourContextProvider from "./Store/TourContextProvider";
+import ContactUs from "./Pages/ContactUs";
 const productsArr = [
   {
     title: "Colors",
@@ -63,7 +64,10 @@ function App() {
           path: "/",
           element: (
             <>
-              <Store products={productsArr}></Store>
+              <Store
+                products={productsArr}
+                onCartClick={cartClickHandler}
+              ></Store>
             </>
           ),
         },
@@ -79,6 +83,7 @@ function App() {
             </TourContextProvider>
           ),
         },
+        { path: "/contactUs", element: <ContactUs></ContactUs> },
       ],
     },
   ]);

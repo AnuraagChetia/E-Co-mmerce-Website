@@ -9,7 +9,7 @@ import {
 import CartContext from "../../Store/cart-context";
 import { NavLink, Outlet } from "react-router-dom";
 import classes from "./Header.module.css";
-import bgImg from "../../Assets/tim-toomey-eiY4KJ62P5Q-unsplash.jpg";
+// import bgImg from "../../Assets/tim-toomey-eiY4KJ62P5Q-unsplash.jpg";
 const Header = (props) => {
   const cartCtx = useContext(CartContext);
   const numberOfCartItems = cartCtx.items.reduce((curNumber, item) => {
@@ -21,49 +21,53 @@ const Header = (props) => {
         <MDBNavbar expand="lg" light bgColor="white" className="fixed-top">
           <MDBContainer fluid>
             <MDBNavbarNav className="d-flex justify-content-center">
-              <MDBNavbarItem>
-                <MDBNavbarLink aria-current="page" href="#">
-                  <NavLink
-                    to="./home"
-                    className={({ isActive }) =>
-                      isActive ? classes.active : classes.inActive
-                    }
-                  >
-                    Home
-                  </NavLink>
-                </MDBNavbarLink>
+              <MDBNavbarItem id="home">
+                <NavLink
+                  to="./home"
+                  className={({ isActive }) =>
+                    isActive ? classes.active : classes.inActive
+                  }
+                >
+                  Home
+                </NavLink>
               </MDBNavbarItem>
-              <MDBNavbarItem key="store">
-                <MDBNavbarLink to="/">
-                  <NavLink
-                    to="/"
-                    className={({ isActive }) =>
-                      isActive ? classes.active : classes.inActive
-                    }
-                    // style={{
-                    //   color: "rgba(0,0,0,.55)",
-                    //   textDecoration: "none",
-                    // }}
-                  >
-                    Store
-                  </NavLink>
-                </MDBNavbarLink>
+              <MDBNavbarItem id="store">
+                <NavLink
+                  to="/"
+                  className={({ isActive }) =>
+                    isActive ? classes.active : classes.inActive
+                  }
+                  // style={{
+                  //   color: "rgba(0,0,0,.55)",
+                  //   textDecoration: "none",
+                  // }}
+                >
+                  Store
+                </NavLink>
               </MDBNavbarItem>
 
-              <MDBNavbarItem>
-                <MDBNavbarLink>
-                  <NavLink
-                    to="./about"
-                    className={({ isActive }) =>
-                      isActive ? classes.active : classes.inActive
-                    }
-                  >
-                    About
-                  </NavLink>
-                </MDBNavbarLink>
+              <MDBNavbarItem id="about">
+                <NavLink
+                  to="./about"
+                  className={({ isActive }) =>
+                    isActive ? classes.active : classes.inActive
+                  }
+                >
+                  About
+                </NavLink>
+              </MDBNavbarItem>
+              <MDBNavbarItem id="contact">
+                <NavLink
+                  to="./contactUs"
+                  className={({ isActive }) =>
+                    isActive ? classes.active : classes.inActive
+                  }
+                >
+                  Contact us
+                </NavLink>
               </MDBNavbarItem>
             </MDBNavbarNav>
-            <MDBNavbarItem className="d-flex justify-content-end">
+            <MDBNavbarItem className="d-flex justify-content-end" id="cart">
               {/* <MDBNavbarLink onClick={props.onCartClick}>Cart</MDBNavbarLink> */}
               <button
                 type="button"
