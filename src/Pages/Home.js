@@ -10,15 +10,15 @@ const Home = (props) => {
         <button className={classes.album}>Get our Latest Album</button>
         <button className={classes.play}>Play</button>
       </div>
-      <Container style={{width:'50rem'}}>
+      <Container style={{ width: "50rem" }}>
         <h2 className={classes.header}>TOURS</h2>
-        <Table>
+        <Table responsive="md" size="sm">
           <tbody>
             {tourCtx.tours.map((tour) => (
-              <tr>
-                <td>{tour.date}</td>
-                <td>{tour.location}</td>
-                <td>{tour.venue}</td>
+              <tr key={Math.random()}>
+                <td key="date">{tour.date}</td>
+                <td key="location">{tour.location}</td>
+                <td key="venue">{tour.venue}</td>
                 <td>
                   <Button variant="primary" className={classes.buyTickets}>
                     Buy Tickets

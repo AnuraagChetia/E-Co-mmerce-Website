@@ -11,6 +11,7 @@ import About from "./Pages/About";
 import Home from "./Pages/Home";
 import TourContextProvider from "./Store/TourContextProvider";
 import ContactUs from "./Pages/ContactUs";
+import ProductDetails from "./Pages/ProductDetails";
 const productsArr = [
   {
     title: "Colors",
@@ -61,7 +62,7 @@ function App() {
       ),
       children: [
         {
-          path: "/",
+          path: "/store",
           element: (
             <>
               <Store
@@ -70,6 +71,10 @@ function App() {
               ></Store>
             </>
           ),
+        },
+        {
+          path: "/store/:productTitle",
+          element: <ProductDetails products={productsArr}></ProductDetails>,
         },
         {
           path: "/about",

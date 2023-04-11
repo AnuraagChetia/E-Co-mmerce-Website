@@ -18,7 +18,7 @@ const About = (props) => {
         thumbnail
         roundedCircle
       ></Image>
-      <p style={{ display: "block", fontSize: "17px", color: "#777" }}>
+      <p style={{ display: "block", fontSize: "17px", color: "#777" , paddingBottom:'1.5rem'}}>
         Lorem ipsum carrots enhanced rebates. Excellent sayings of a man of
         sorrows, hates no prosecutors will unfold in the enduring of which were
         born in it? Often leads smallest mistake some pain main responsibilities

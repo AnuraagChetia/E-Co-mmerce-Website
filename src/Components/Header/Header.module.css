@@ -1,11 +1,9 @@
-a.hover,
 a.active {
   color: var(--color-primary-800);
   text-decoration: underline;
   font-weight: bold;
   padding: 20px;
 }
-a.hover,
 a.inActive {
   color: rgba(0, 0, 0, 0.55);
   text-decoration: none;
@@ -14,4 +12,7 @@ a.inActive {
 }
 a.hover {
   font-weight: bold;
+}
+.navbar {
+  min-height: 4rem;
 }

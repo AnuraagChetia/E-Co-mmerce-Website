@@ -21,7 +21,7 @@ const ContactUs = (props) => {
     );
   };
   return (
-    <Container>
+    <Container style={{ paddingBottom: "2.2rem" }}>
       <Form onSubmit={formSubmitHandler} className={classes.contactForm}>
         <Form.Group className="mb-3" controlId="name">
           <Form.Label>Name</Form.Label>
