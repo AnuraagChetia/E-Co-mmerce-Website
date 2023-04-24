@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./App.css";
 import Footer from "./Components/Footer/Footer";
 import Header from "./Components/Header/Header";
 import Store from "./Components/Store/Store";
 import Cart from "./Components/Cart/Cart";
 import CartContextProvider from "./Store/CartContextProvider";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import {
+  Route,
+  RouterProvider,
+  Routes,
+  createBrowserRouter,
+} from "react-router-dom";
 import About from "./Pages/About";
 // import CartContext from "./Store/cart-context";
 import Home from "./Pages/Home";
@@ -13,7 +18,11 @@ import LoginPage from "./Pages/Login";
 import TourContextProvider from "./Store/TourContextProvider";
 import ContactUs from "./Pages/ContactUs";
 import ProductDetails from "./Pages/ProductDetails";
-import { AuthContextProvider } from "./Components/Store/auth-context";
+import AuthContext, {
+  AuthContextProvider,
+} from "./Components/Store/auth-context";
+// import Layout from "../../Authentication-main/Authentication-main/src/components/Layout/Layout";
+import { Switch } from "@material-tailwind/react";
 const productsArr = [
   {
     title: "Colors",
@@ -42,90 +51,54 @@ const productsArr = [
 ];
 function App() {
   const [modalShow, setModalShow] = React.useState(false);
-  // const cartCtx = useContext(CartContext);
+  const authCtx = useContext(AuthContext);
   const cartClickHandler = () => {
     setModalShow(true);
   };
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: (
-        <AuthContextProvider>
-          <CartContextProvider>
-            <Header onCartClick={cartClickHandler}></Header>
-            <Cart
-              dummyproducts={productsArr}
-              show={modalShow}
-              onHide={() => {
-                setModalShow(false);
-              }}
-            ></Cart>
-            <Footer></Footer>
-          </CartContextProvider>
-        </AuthContextProvider>
-      ),
-      children: [
-        {
-          path: "/store",
-          element: (
-            <>
+  return (
+    <>
+      <Header onCartClick={cartClickHandler}></Header>
+      <Cart
+        dummyproducts={productsArr}
+        show={modalShow}
+        onHide={() => {
+          setModalShow(false);
+        }}
+      ></Cart>
+
+      <Routes>
+        {/* home */}
+        <Route path="/" exact element={<Home></Home>}></Route>
+        {/* about us */}
+        <Route path="/about" element={<About></About>}></Route>
+        {/* contact us */}
+        <Route path="/contactUs" element={<ContactUs></ContactUs>}></Route>
+        {/* product title */}
+        <Route
+          path="/store/:productTitle"
+          element={<ProductDetails products={productsArr}></ProductDetails>}
+        ></Route>
+        {/* store */}
+        {authCtx.isLoggedIn && (
+          <Route
+            path="/store"
+            exact
+            element={
               <Store
                 products={productsArr}
                 onCartClick={cartClickHandler}
               ></Store>
-            </>
-          ),
-        },
-        {
-          path: "/store/:productTitle",
-          element: <ProductDetails products={productsArr}></ProductDetails>,
-        },
-        {
-          path: "/about",
-          element: <About></About>,
-        },
-        {
-          path: "/",
-          element: (
-            <TourContextProvider>
-              <Home></Home>
-            </TourContextProvider>
-          ),
-        },
-        { path: "/contactUs", element: <ContactUs></ContactUs> },
-        {
-          path: "*",
-          element: (
-            <TourContextProvider>
-              <Home></Home>
-            </TourContextProvider>
-          ),
-        },
-        { path: "/login", element: <LoginPage></LoginPage> },
-      ],
-    },
-  ]);
-  // return (
-  //   <>
-  //     <CartContextProvider>
-  // <Cart
-  //   dummyproducts={productsArr}
-  //   show={modalShow}
-  //   onHide={() => {
-  //     setModalShow(false);
-  //   }}
-  // ></Cart>;
-  // <Header
-  //   onCartClick={() => {
-  //     setModalShow(true);
-  //   }}
-  // ></Header>
-  //       <Store products={productsArr}></Store>
-  //       <Footer></Footer>
-  //     </CartContextProvider>
-  //   </>
-  // );
-  return <RouterProvider router={router}></RouterProvider>;
+            }
+          ></Route>
+        )}
+        {!authCtx.isLoggedIn && (
+          <Route path="/store" exact element={<LoginPage></LoginPage>}></Route>
+        )}
+        <Route path="/login" element={<LoginPage></LoginPage>}></Route>
+      </Routes>
+      <Footer></Footer>
+    </>
+  );
 }
 
 export default App;

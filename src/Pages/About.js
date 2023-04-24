@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Image, ListGroupItem } from "react-bootstrap";
+import { Container, Image } from "react-bootstrap";
 import bandMembers from "../Assets/BandMembers.png";
 const About = (props) => {
   return (

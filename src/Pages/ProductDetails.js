@@ -1,6 +1,6 @@
-import { CardBody, CardHeader } from "@material-tailwind/react";
+
 import React from "react";
-import { Button, Card, CardImg, Col, Container, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 const ProductDetails = (props) => {
   const param = useParams();
