@@ -18,26 +18,27 @@ const StoreItem = (props) => {
   return (
     <Col>
       <Card className="mx-auto" style={{ width: "18rem", margin: "20px" }}>
-        <Link to={`/store/${props.item.title}`}>
-          <Card.Body>
+        <Card.Body>
+          <Link to={`/store/${props.item.title}`}>
             <Card.Title style={{ textAlign: "center" }}>
               {props.item.title}
             </Card.Title>
             <Card.Img variant="top" src={props.item.imageUrl} />
-            <hr></hr>
-            <Row>
-              <Col>
-                <Card.Text>${props.item.price}</Card.Text>
-              </Col>
+          </Link>
+          <hr></hr>
 
-              <Col>
-                <Button variant="primary" size="sm" onClick={addToCartHandler}>
-                  Add to Card
-                </Button>
-              </Col>
-            </Row>
-          </Card.Body>
-        </Link>
+          <Row>
+            <Col>
+              <Card.Text>${props.item.price}</Card.Text>
+            </Col>
+
+            <Col>
+              <Button variant="primary" size="sm" onClick={addToCartHandler}>
+                Add to Card
+              </Button>
+            </Col>
+          </Row>
+        </Card.Body>
       </Card>
     </Col>
   );

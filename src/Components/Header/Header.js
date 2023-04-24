@@ -13,10 +13,13 @@ import {
 import CartContext from "../../Store/cart-context";
 import { NavLink, Outlet } from "react-router-dom";
 import classes from "./Header.module.css";
+import { Container } from "react-bootstrap";
+import AuthContext from "../Store/auth-context";
 // import bgImg from "../../Assets/tim-toomey-eiY4KJ62P5Q-unsplash.jpg";
 const Header = (props) => {
   const [showNavRight, setShowNavRight] = useState(false);
   const cartCtx = useContext(CartContext);
+  const authCtx = useContext(AuthContext);
   const numberOfCartItems = cartCtx.items.reduce((curNumber, item) => {
     return curNumber + 1;
   }, 0);
@@ -45,7 +48,7 @@ const Header = (props) => {
               <MDBNavbarNav className="d-flex justify-content-center">
                 <MDBNavbarItem id="home">
                   <NavLink
-                    to="./home"
+                    to="/"
                     className={({ isActive }) =>
                       isActive ? classes.active : classes.inActive
                     }
@@ -53,24 +56,26 @@ const Header = (props) => {
                     Home
                   </NavLink>
                 </MDBNavbarItem>
-                <MDBNavbarItem id="store">
-                  <NavLink
-                    to="/store"
-                    className={({ isActive }) =>
-                      isActive ? classes.active : classes.inActive
-                    }
-                    // style={{
-                    //   color: "rgba(0,0,0,.55)",
-                    //   textDecoration: "none",
-                    // }}
-                  >
-                    Store
-                  </NavLink>
-                </MDBNavbarItem>
+                {authCtx.isLoggedIn && (
+                  <MDBNavbarItem id="store">
+                    <NavLink
+                      to="/store"
+                      className={({ isActive }) =>
+                        isActive ? classes.active : classes.inActive
+                      }
+                      // style={{
+                      //   color: "rgba(0,0,0,.55)",
+                      //   textDecoration: "none",
+                      // }}
+                    >
+                      Store
+                    </NavLink>
+                  </MDBNavbarItem>
+                )}
 
                 <MDBNavbarItem id="about">
                   <NavLink
-                    to="./about"
+                    to="/about"
                     className={({ isActive }) =>
                       isActive ? classes.active : classes.inActive
                     }
@@ -78,9 +83,22 @@ const Header = (props) => {
                     About
                   </NavLink>
                 </MDBNavbarItem>
+                {!authCtx.isLoggedIn && (
+                  <MDBNavbarItem id="login">
+                    <NavLink
+                      to="/login"
+                      className={({ isActive }) =>
+                        isActive ? classes.active : classes.inActive
+                      }
+                    >
+                      Login
+                    </NavLink>
+                  </MDBNavbarItem>
+                )}
+
                 <MDBNavbarItem id="contact">
                   <NavLink
-                    to="./contactUs"
+                    to="/contactUs"
                     className={({ isActive }) =>
                       isActive ? classes.active : classes.inActive
                     }
@@ -88,30 +106,46 @@ const Header = (props) => {
                     Contact us
                   </NavLink>
                 </MDBNavbarItem>
+                {authCtx.isLoggedIn && (
+                  <MDBNavbarItem id="logout">
+                    <NavLink
+                      to="/login"
+                      className={({ isActive }) =>
+                        isActive ? classes.active : classes.inActive
+                      }
+                      onClick={authCtx.logout}
+                    >
+                      Logout
+                    </NavLink>
+                  </MDBNavbarItem>
+                )}
               </MDBNavbarNav>
-              <MDBNavbarItem className="d-flex justify-content-end" id="cart">
-                {/* <MDBNavbarLink onClick={props.onCartClick}>Cart</MDBNavbarLink> */}
-                <button
-                  type="button"
-                  className="btn btn-tertiary"
-                  data-mdb-ripple-color="light"
-                  onClick={props.onCartClick}
-                >
-                  <MDBIcon
-                    fas
-                    icon="shopping-cart"
-                    style={{ display: "inline" }}
-                  ></MDBIcon>
-                  Cart
-                  <MDBBadge pill color="danger" style={{ display: "inline" }}>
-                    {numberOfCartItems}
-                  </MDBBadge>
-                </button>
-              </MDBNavbarItem>
+
+              {authCtx.isLoggedIn && (
+                <MDBNavbarItem className="d-flex justify-content-end" id="cart">
+                  {/* <MDBNavbarLink onClick={props.onCartClick}>Cart</MDBNavbarLink> */}
+                  <button
+                    type="button"
+                    className="btn btn-tertiary"
+                    data-mdb-ripple-color="light"
+                    onClick={props.onCartClick}
+                  >
+                    <MDBIcon
+                      fas
+                      icon="shopping-cart"
+                      style={{ display: "inline" }}
+                    ></MDBIcon>
+                    Cart
+                    <MDBBadge pill color="danger" style={{ display: "inline" }}>
+                      {numberOfCartItems}
+                    </MDBBadge>
+                  </button>
+                </MDBNavbarItem>
+              )}
             </MDBCollapse>
           </MDBContainer>
         </MDBNavbar>
-        <div className="p-5 text-center bg-light">
+        <Container fluid className="p-5 text-center bg-light">
           <h1
             className="mb-10"
             style={{
@@ -122,11 +156,10 @@ const Header = (props) => {
           >
             The Generics
           </h1>
-        </div>
+        </Container>
       </header>
       <Outlet></Outlet>
     </>
   );
 };
-
 export default Header;

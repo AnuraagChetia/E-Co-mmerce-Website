@@ -9,9 +9,11 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import About from "./Pages/About";
 // import CartContext from "./Store/cart-context";
 import Home from "./Pages/Home";
+import LoginPage from "./Pages/Login";
 import TourContextProvider from "./Store/TourContextProvider";
 import ContactUs from "./Pages/ContactUs";
 import ProductDetails from "./Pages/ProductDetails";
+import { AuthContextProvider } from "./Components/Store/auth-context";
 const productsArr = [
   {
     title: "Colors",
@@ -48,17 +50,19 @@ function App() {
     {
       path: "/",
       element: (
-        <CartContextProvider>
-          <Header onCartClick={cartClickHandler}></Header>
-          <Cart
-            dummyproducts={productsArr}
-            show={modalShow}
-            onHide={() => {
-              setModalShow(false);
-            }}
-          ></Cart>
-          <Footer></Footer>
-        </CartContextProvider>
+        <AuthContextProvider>
+          <CartContextProvider>
+            <Header onCartClick={cartClickHandler}></Header>
+            <Cart
+              dummyproducts={productsArr}
+              show={modalShow}
+              onHide={() => {
+                setModalShow(false);
+              }}
+            ></Cart>
+            <Footer></Footer>
+          </CartContextProvider>
+        </AuthContextProvider>
       ),
       children: [
         {
@@ -81,7 +85,7 @@ function App() {
           element: <About></About>,
         },
         {
-          path: "/home",
+          path: "/",
           element: (
             <TourContextProvider>
               <Home></Home>
@@ -89,6 +93,15 @@ function App() {
           ),
         },
         { path: "/contactUs", element: <ContactUs></ContactUs> },
+        {
+          path: "*",
+          element: (
+            <TourContextProvider>
+              <Home></Home>
+            </TourContextProvider>
+          ),
+        },
+        { path: "/login", element: <LoginPage></LoginPage> },
       ],
     },
   ]);

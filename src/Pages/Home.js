@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
 import TourContext from "../Store/tour-context";
 import classes from "./Home.module.css";
-import { Button, Container, Table } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
+import Table from "react-bootstrap/Table";
 const Home = (props) => {
   const tourCtx = useContext(TourContext);
   return (
@@ -10,9 +11,9 @@ const Home = (props) => {
         <button className={classes.album}>Get our Latest Album</button>
         <button className={classes.play}>Play</button>
       </div>
-      <Container style={{ width: "50rem" }}>
+      <Container>
         <h2 className={classes.header}>TOURS</h2>
-        <Table responsive="md" size="sm">
+        <Table responsive="sm" size="sm" className="my-4 mx-auto">
           <tbody>
             {tourCtx.tours.map((tour) => (
               <tr key={Math.random()}>
