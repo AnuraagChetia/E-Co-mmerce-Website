@@ -1,9 +1,34 @@
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import CartContext from "./cart-context";
-const defaultCartState = {
+
+let defaultCartState = {
   items: [],
   totalAmount: 0,
 };
+
+const crudUrl = "https://crudcrud.com/api/9417c3c485ad42b18354fdbc08d67d59";
+
+let email = localStorage.getItem("email");
+let updatedEmail;
+if (email) {
+  updatedEmail = email.replace(/[^a-zA-Z ]/g, "");
+}
+console.log(updatedEmail);
+
+const addToCrudHandler = async (item) => {
+  try {
+    fetch(`${crudUrl}/${updatedEmail}`, {
+      method: "POST",
+      body: JSON.stringify(item),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const cartReducer = (state, action) => {
   if (action.type === "ADD") {
     const updatedTotalAmount = state.totalAmount + action.item.price;
@@ -23,33 +48,47 @@ const cartReducer = (state, action) => {
     } else {
       updatedItems = state.items.concat(action.item);
     }
-
-    return {
+    const newCart = {
       items: updatedItems,
       totalAmount: updatedTotalAmount,
     };
+    // console.log(newCart);
+    addToCrudHandler(newCart);
+    return newCart;
   }
   return defaultCartState;
 };
 const CartContextProvider = (props) => {
-  // const cartCtx = useContext(CartContext);
-  // const [items, setItems] = useState([]);
-
-  // const [totalItemsInCart, setTotalItemsInCart] = useState(length);
-  // const addItem = (item) => {
-  //   setItems((prevItems) => {
-  //     return [...prevItems, item];
-  //   });
-  //   length++;
-  //   setTotalItemsInCart(length);
-  // };
   const [cartState, dispatchCartAction] = useReducer(
     cartReducer,
     defaultCartState
   );
+
   const addItemToCartHandler = (item) => {
+    // console.log(item);
     dispatchCartAction({ type: "ADD", item: item });
   };
+
+  const initialFetch = async () => {
+    const response = await fetch(`${crudUrl}/${updatedEmail}`);
+
+    const data = await response.json();
+    // console.log("this");
+    // console.log(data);
+    if (data.length > 0) {
+      data[data.length - 1].items.forEach((element) => {
+        addItemToCartHandler({
+          ...element,
+          totalAmount: data[data.length - 1].totalAmount,
+        });
+      });
+    }
+  };
+
+  useEffect(() => {
+    initialFetch();
+  }, []);
+
   const cartContext = {
     items: cartState.items,
     totalAmount: cartState.totalAmount,
@@ -58,9 +97,6 @@ const CartContextProvider = (props) => {
     // removeItem: removeItemToCartHandler,
   };
   return (
-    // <CartContext.Provider value={{ items, addItem, totalItemsInCart }}>
-    //   {props.children}
-    // </CartContext.Provider>
     <CartContext.Provider value={cartContext}>
       {props.children}
     </CartContext.Provider>

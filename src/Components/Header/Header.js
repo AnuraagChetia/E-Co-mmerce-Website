@@ -14,7 +14,7 @@ import CartContext from "../../Store/cart-context";
 import { NavLink, Outlet } from "react-router-dom";
 import classes from "./Header.module.css";
 import { Container } from "react-bootstrap";
-import AuthContext from "../Store/auth-context";
+import AuthContext from "../../Store/auth-context";
 // import bgImg from "../../Assets/tim-toomey-eiY4KJ62P5Q-unsplash.jpg";
 const Header = (props) => {
   const [showNavRight, setShowNavRight] = useState(false);

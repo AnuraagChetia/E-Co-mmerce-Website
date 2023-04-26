@@ -4,25 +4,17 @@ import Footer from "./Components/Footer/Footer";
 import Header from "./Components/Header/Header";
 import Store from "./Components/Store/Store";
 import Cart from "./Components/Cart/Cart";
-import CartContextProvider from "./Store/CartContextProvider";
-import {
-  Route,
-  RouterProvider,
-  Routes,
-  createBrowserRouter,
-} from "react-router-dom";
+
+import { Route, Routes } from "react-router-dom";
 import About from "./Pages/About";
-// import CartContext from "./Store/cart-context";
+
 import Home from "./Pages/Home";
 import LoginPage from "./Pages/Login";
-import TourContextProvider from "./Store/TourContextProvider";
+
 import ContactUs from "./Pages/ContactUs";
 import ProductDetails from "./Pages/ProductDetails";
-import AuthContext, {
-  AuthContextProvider,
-} from "./Components/Store/auth-context";
-// import Layout from "../../Authentication-main/Authentication-main/src/components/Layout/Layout";
-import { Switch } from "@material-tailwind/react";
+import AuthContext from "./Store/auth-context";
+
 const productsArr = [
   {
     title: "Colors",
@@ -57,7 +49,7 @@ function App() {
   };
   return (
     <>
-      <Header onCartClick={cartClickHandler}></Header>
+      {/* <Header onCartClick={cartClickHandler}></Header> */}
       <Cart
         dummyproducts={productsArr}
         show={modalShow}
@@ -68,15 +60,45 @@ function App() {
 
       <Routes>
         {/* home */}
-        <Route path="/" exact element={<Home></Home>}></Route>
+        <Route
+          path="/"
+          exact
+          element={
+            <>
+              <Header onCartClick={cartClickHandler}></Header>
+              <Home></Home>
+            </>
+          }
+        ></Route>
         {/* about us */}
-        <Route path="/about" element={<About></About>}></Route>
+        <Route
+          path="/about"
+          element={
+            <>
+              <Header onCartClick={cartClickHandler}></Header>
+              <About></About>
+            </>
+          }
+        ></Route>
         {/* contact us */}
-        <Route path="/contactUs" element={<ContactUs></ContactUs>}></Route>
+        <Route
+          path="/contactUs"
+          element={
+            <>
+              <Header onCartClick={cartClickHandler}></Header>
+              <ContactUs></ContactUs>
+            </>
+          }
+        ></Route>
         {/* product title */}
         <Route
           path="/store/:productTitle"
-          element={<ProductDetails products={productsArr}></ProductDetails>}
+          element={
+            <>
+              <Header onCartClick={cartClickHandler}></Header>
+              <ProductDetails products={productsArr}></ProductDetails>
+            </>
+          }
         ></Route>
         {/* store */}
         {authCtx.isLoggedIn && (
@@ -84,17 +106,37 @@ function App() {
             path="/store"
             exact
             element={
-              <Store
-                products={productsArr}
-                onCartClick={cartClickHandler}
-              ></Store>
+              <>
+                <Header onCartClick={cartClickHandler}></Header>
+                <Store
+                  products={productsArr}
+                  onCartClick={cartClickHandler}
+                ></Store>
+              </>
             }
           ></Route>
         )}
         {!authCtx.isLoggedIn && (
-          <Route path="/store" exact element={<LoginPage></LoginPage>}></Route>
+          <Route
+            path="/store"
+            exact
+            element={
+              <>
+                <Header onCartClick={cartClickHandler}></Header>
+                <LoginPage></LoginPage>
+              </>
+            }
+          ></Route>
         )}
-        <Route path="/login" element={<LoginPage></LoginPage>}></Route>
+        <Route
+          path="/login"
+          element={
+            <>
+              <Header onCartClick={cartClickHandler}></Header>
+              <LoginPage></LoginPage>
+            </>
+          }
+        ></Route>
       </Routes>
       <Footer></Footer>
     </>

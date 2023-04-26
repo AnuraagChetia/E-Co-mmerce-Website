@@ -1,12 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import CartContext from "../../Store/cart-context";
 import CartItem from "./CartItem";
-
 const Cart = (props) => {
   const cartCtx = useContext(CartContext);
+
   return (
     <Modal
       {...props}

@@ -5,15 +5,27 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import CartContext from "../../Store/cart-context";
 import { Link } from "react-router-dom";
+import AuthContext from "../../Store/auth-context";
+import axios from "axios";
 const StoreItem = (props) => {
   const cartCtx = useContext(CartContext);
+  const authctx = useContext(AuthContext);
+  let email = localStorage.getItem("email");
+  let updatedEmail;
+  if (email) {
+    updatedEmail = email.replace("@", "").replace(".", "");
+  }
   const addToCartHandler = () => {
-    cartCtx.addItem({
-      title: props.item.title,
-      imageUrl: props.item.imageUrl,
-      price: props.item.price,
-      amount: props.item.amount,
-    });
+    // const item = {
+    //   title: props.item.title,
+    //   imageUrl: props.item.imageUrl,
+    //   price: props.item.price,
+    //   amount: props.item.amount,
+    // };
+
+    const items = props.item;
+    // console.log(JSON.stringify({ ...items, quantity: 1 }));
+    cartCtx.addItem({ ...items, quantity: 1 }, updatedEmail);
   };
   return (
     <Col>
